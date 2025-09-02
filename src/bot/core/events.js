@@ -27,7 +27,7 @@ bot.on("inline_query", (query) => {
     const price = match[2];
 
     const params = btoa(JSON.stringify({ name, price, chatId: query.from.id }));
-    const message = `@${name} username uchun taklif yuborildi! Tafsilotlarni ko'rish uchun Fragment-ga tashrif buyuring:`
+    const message = `@${name} usernameni sotib olish uchun taklif yuborildi! Tafsilotlarni ko'rish uchun Fragment-ga tashrif buyuring:`
 
     const results = [
         {
