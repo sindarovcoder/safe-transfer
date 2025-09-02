@@ -1,4 +1,16 @@
 const bot = require("./bot");
+const express = require("express");
+
+
+const app = express();
+app.use(express.json());
+
+bot.setWebHook(`${process.env.RENDER_EXTERNAL_URL}/webhook/${TOKEN}`);
+
+app.post(`/webhook/${process.env.BOT_TOKEN}`, (req, res) => {
+    bot.processUpdate(req.body);
+    res.sendStatus(200);
+});
 
 bot.onText(/\/start/, (msg) => {
     bot.sendMessage(msg.chat.id, `Assalomu alaykum, ${msg.from.first_name}!\n\nIltimos, username va summa ko'rinishida taklif yuboring (masalan: @username-1000 yoki username-1000).`);
@@ -37,6 +49,12 @@ bot.on("inline_query", (query) => {
         },
     ];
     bot.answerInlineQuery(query.id, results, { cache_time: 0 });
+});
+
+
+const PORT = process.env.PORT || 10001;
+app.listen(PORT, () => {
+    console.log(`Bot server running on port ${PORT}`);
 });
 
 module.exports = bot;
