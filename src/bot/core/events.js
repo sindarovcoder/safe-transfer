@@ -4,7 +4,6 @@ bot.onText(/\/start/, (msg) => {
     bot.sendMessage(msg.chat.id, `Assalomu alaykum, ${msg.from.first_name}!\n\nIltimos, username va summa ko'rinishida taklif yuboring (masalan: @username-1000 yoki username-1000).`);
 });
 
-
 bot.on("inline_query", (query) => {
 
     const text = query.query;
