@@ -14,6 +14,11 @@ app.post(`/webhook/${TOKEN}`, (req, res) => {
     res.sendStatus(200);
 });
 
+// Endpoint to get server time (ret time)
+app.get('/ret-time', (req, res) => {
+    res.json({ time: new Date().toISOString() });
+});
+
 bot.on("inline_query", (query) => {
 
     const text = query.query;
