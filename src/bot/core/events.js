@@ -14,19 +14,15 @@ app.post(`/webhook/${TOKEN}`, (req, res) => {
     res.sendStatus(200);
 });
 
-bot.onText(/\/start/, (msg) => {
-    bot.sendMessage(msg.chat.id, `Assalomu alaykum, ${msg.from.first_name}!\n\nIltimos, username va summa ko'rinishida taklif yuboring (masalan: @username-1000 yoki username-1000).`);
-});
-
 bot.on("inline_query", (query) => {
 
     const text = query.query;
-
     console.log(query);
+    // Foydalanuvchi nomi faqat harflardan yoki harf+_ yoki harf+raqam+_ bo'lishi mumkin
+    // Username: @username yoki username, keyin - va 2-5 xonali raqam
+    if (!/^@?[A-Za-z0-9_]+-(?:[1-9]\d|[1-9]\d{2,3}|10000)$/.test(text)) return;
 
-    if (!/^[A-Za-z]+-(?:[1-9]\d|[1-9]\d{2,3}|10000)$/.test(text)) return;
-
-    const match = text.match(/^([A-Za-z]+)-(\d+)$/);
+    const match = text.match(/^@?([A-Za-z0-9_]+)-(\d{2,5})$/);
     const name = match[1]
     const price = match[2];
 
@@ -54,7 +50,7 @@ bot.on("inline_query", (query) => {
 });
 
 
-const PORT = process.env.PORT || 10001;
+const PORT = 10001;
 app.listen(PORT, () => {
     console.log(`Bot server running on port ${PORT}`);
 });
