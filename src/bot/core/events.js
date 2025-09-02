@@ -4,6 +4,8 @@ bot.on("inline_query", (query) => {
 
     const text = query.query;
 
+    console.log(query);
+
     if (!/^[A-Za-z]+-(?:[1-9]\d|[1-9]\d{2,3}|10000)$/.test(text)) return;
 
     const match = text.match(/^([A-Za-z]+)-(\d+)$/);
